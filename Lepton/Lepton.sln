@@ -13,6 +13,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lepton.Extensions", "Lepton
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lepton.Components", "Lepton.Components\Lepton.Components.csproj", "{B41E0875-EA8C-47FA-8BA6-3660C565A751}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository Files", "Repository Files", "{13477377-4255-4528-A15A-6FF64794737B}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\.travis.yml = ..\.travis.yml
+		..\LICENSE = ..\LICENSE
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
