@@ -16,7 +16,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Lepton.Data\Lepton.Data.csproj" />
     <ProjectReference Include="..\..\Lepton.Extensions\Lepton.Extensions.csproj" />
-    <ProjectReference Include="..\Shared\Lepton.Web.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
