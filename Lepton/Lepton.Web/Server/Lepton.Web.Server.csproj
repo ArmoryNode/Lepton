@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Lepton.Data\Lepton.Data.csproj" />
+    <ProjectReference Include="..\Client\Lepton.Web.Client.csproj" />
+    <ProjectReference Include="..\Shared\Lepton.Web.Shared.csproj" />
+  </ItemGroup>
+
+
+</Project>
