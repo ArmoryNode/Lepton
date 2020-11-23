@@ -1,0 +1,23 @@
+﻿#layoutWrapper {
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  flex-grow: 1;
+  font-family: 'Open Sans', sans-serif;
+  color: #F6F6F7;
+  background-color: #1F1F1F;
+  height: 100vh; }
+  #layoutWrapper nav.top-bar {
+    height: 40px; }
+  #layoutWrapper .main {
+    display: flex;
+    flex-flow: row nowrap;
+    flex-grow: 1; }
+    #layoutWrapper .main .content {
+      width: 100%; }
+  #layoutWrapper .side-bar {
+    min-width: 350px; }
+
+@media screen and (min-width: 0) and (max-width: 576px) {
+  #layoutWrapper .side-bar {
+    background-color: red; } }

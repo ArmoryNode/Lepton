@@ -1,0 +1,63 @@
+﻿@using Lepton.Web.Client.Utilities;
+
+@inject HttpClient Http
+@inject CharacterStateService CharacterService
+
+<div class="sidenav-header">
+    
+</div>
+
+<ul class="sidenav">
+    <li class="sidenav-item">
+        <NavLink class="nav-link sidenav-item-content" href="" Match="NavLinkMatch.All">
+            <span><span class="fas fa-fw fa-home"></span>Home</span>
+        </NavLink>
+    </li>
+
+    <li class="sidenav-item sidenav-item-collection @MyCharactersClasses.Build">
+        <div class="sidenav-item-content" @onclick="() => MyCharactersClicked()">
+            <span>My Characters</span>
+        </div>
+    </li>
+
+    <li class="collection-container">
+        <ul class="collection-container-body">
+            @foreach (var character in CharacterIndex.OrderBy(c => c.Name))
+            {
+                string link = $"Character/{character.RowKey}";
+
+                <li class="collection-item">
+                    <NavLink class="nav-link collection-item-content" href="@link" Match="NavLinkMatch.All" @onclick="async () => await OnCharacterSelected(character.RowKey)">
+                        <span><span class="fa fa-fw fa-person"></span>@character.Name</span>
+                    </NavLink>
+                </li>
+            }
+        </ul>
+    </li>
+
+    <li class="sidenav-item">
+        <NavLink class="nav-link sidenav-item-content" href="/Settings">
+            <span><span class="fas fa-fw fa-cogs"></span>Settings</span>
+        </NavLink>
+    </li>
+</ul>
+
+@code {
+
+    public IEnumerable<CharacterViewModel> CharacterIndex { get; set; } = new List<CharacterViewModel>();
+
+    public ClassBuilder MyCharactersClasses { get; set; } = new ClassBuilder();
+
+    public void MyCharactersClicked() => MyCharactersClasses.Toggle("active");
+
+    protected override async Task OnInitializedAsync()
+    {
+        CharacterIndex = await Http.GetFromJsonAsync<IEnumerable<CharacterViewModel>>("api/Character");
+    }
+
+    private async Task OnCharacterSelected(string characterId)
+    {
+        var character = await Http.GetFromJsonAsync<CharacterViewModel>($"api/Character/{characterId}");
+        await CharacterService.SetAsync(character);
+    }
+}

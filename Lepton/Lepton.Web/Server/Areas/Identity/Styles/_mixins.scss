@@ -1,0 +1,7 @@
+﻿@mixin box-shadow {
+    box-shadow: 0px 3px 8px rgba(0, 0, 0, 0.24);
+}
+
+@mixin transition-for($property) {
+    transition: .3s ease $property;
+}

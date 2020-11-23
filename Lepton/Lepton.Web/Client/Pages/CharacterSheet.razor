@@ -1,0 +1,43 @@
+﻿@page "/Character/{Id}"
+
+@inherits PageBase
+@implements IDisposable
+@inject NavigationManager navigationManager
+@inject CharacterStateService CharacterService
+@inject HttpClient Http
+
+<h3>Character</h3>
+<div>
+    <span>Id: @Id</span>
+</div>
+<div>
+    <span>Name: @Character?.Name</span>
+</div>
+
+
+
+@code {
+    [Parameter]
+    public string Id { get; set; }
+
+    public CharacterViewModel Character => CharacterService.Character;
+
+    protected override async Task OnInitializedAsync()
+    {
+        CharacterService.CharacterChanged += StateHasChanged;
+
+        var character = CharacterService.Character;
+
+        character ??= await Http.GetFromJsonAsync<CharacterViewModel>($"api/Character/{Id}");
+
+        if (character is null)
+            navigationManager.NavigateTo("/");
+
+        await CharacterService.SetAsync(character);
+    }
+
+    public void Dispose()
+    {
+        CharacterService.CharacterChanged -= StateHasChanged;
+    }
+}

@@ -1,0 +1,131 @@
+﻿@import "../../../Lepton.Components/Styles/_blazor-helpers";
+@import "../../../Lepton.Components/Styles/_colors";
+@import "../../../Lepton.Components/Styles/_variables";
+@import "../../../Lepton.Components/Styles/_mixins";
+
+ul.sidenav {
+    display: flex;
+    flex-flow: column nowrap;
+    flex-grow: 1;
+    height: 100%;
+    padding: 30px 0px 30px 20px;
+    margin: 0;
+    list-style: none;
+    background-color: $foreground-color;
+    border-radius: $border-radius;
+
+    li.sidenav-item {
+        position: relative;
+        font-size: large;
+        height: 50px;
+
+        .fa, .fas, .fab {
+            margin-right: 20px;
+        }
+
+        .sidenav-icon {
+            width: 1em;
+            margin-right: 1em;
+        }
+
+        #{$deep} > .sidenav-item-content, > .sidenav-item-content {
+            display: inline-flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            height: 100%;
+            text-align: left;
+            width: 100%;
+            cursor: pointer;
+            color: $text-color;
+            user-select: none;
+            @include transition-for(background-color);
+
+            &.active {
+                background-color: $primary-color;
+            }
+        }
+
+        &:hover #{$deep} > .sidenav-item-content:not(.active) {
+            background-color: lighten($foreground-color, 5);
+        }
+
+        &.sidenav-item-collection {
+            &:hover > .sidenav-item-content {
+                background-color: lighten($foreground-color, 5);
+            }
+
+            > .sidenav-item-content {
+                padding: .5rem 1rem;
+
+                &::before {
+                    content: '\f0d7';
+                    display: inline-block;
+                    position: relative;
+                    margin-right: 20px;
+                    @include transition-for(transform);
+                    @include fas;
+                    @include fa-fw;
+                }
+            }
+
+            + li.collection-container {
+                position: relative;
+                height: 0;
+                overflow: hidden;
+                @include transition-for(height);
+
+                ul.collection-container-body {
+                    max-height: 100%;
+                    overflow-y: auto;
+                    list-style: none;
+                    padding: 0;
+
+                    li.collection-item {
+                        height: 50px;
+
+                        #{$deep} > .collection-item-content {
+                            display: inline-flex;
+                            flex-flow: row nowrap;
+                            align-items: center;
+                            height: 100%;
+                            text-align: left;
+                            width: 100%;
+                            cursor: pointer;
+                            color: #F6F6F7;
+                            user-select: none;
+                            transition: background-color 0.25s ease 0s;
+
+                            &.active {
+                                background-color: $primary-color;
+                            }
+                        }
+
+
+                        &:hover:not(.active) {
+                            background-color: lighten($foreground-color, 5);
+                        }
+                    }
+                }
+            }
+
+            &.active {
+                > .sidenav-item-content {
+                    &::before {
+                        transform: rotate(180deg);
+                    }
+                }
+
+                + li.collection-container {
+                    height: 200px;
+                }
+            }
+        }
+
+        @each $name, $value in $color-map {
+            &.sidenav-item-#{$name} {
+                #{$deep} > .sidenav-item-content {
+                }
+            }
+        }
+    }
+}

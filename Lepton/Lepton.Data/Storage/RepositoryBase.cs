@@ -19,8 +19,15 @@ namespace Lepton.Data.Storage
 
         public RepositoryBase(StorageSettings settings)
         {
-            settings ??= StorageSettings.DefaultSettings;
-            _account = CloudStorageAccount.Parse(settings.ConnectionString);
+            try
+            {
+                _account = CloudStorageAccount.Parse(settings.ConnectionString);
+            }
+            catch (ArgumentNullException)
+            {
+                settings = StorageSettings.DefaultSettings;
+                _account = CloudStorageAccount.Parse(settings.ConnectionString);
+            }
         }
 
         protected async Task<CloudTable> GetTableReference(CancellationToken cancellationToken)

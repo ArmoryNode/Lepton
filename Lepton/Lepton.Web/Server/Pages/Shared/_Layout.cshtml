@@ -7,14 +7,19 @@
     <title>@ViewBag.Title</title>
     <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="~/css/app.css" rel="stylesheet" />
+    <link href="~/css/site.min.css" rel="stylesheet" />
+
+    @await RenderSectionAsync("Styles", false)
 </head>
 
 <body>
     <div class="main">
-        <div class="content px-4">
+        <div>
             @RenderBody()
         </div>
     </div>
+
+    @await RenderSectionAsync("Scripts", false)
 </body>
 
 </html>

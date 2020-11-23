@@ -1,0 +1,9 @@
+image: Ubuntu
+
+install:
+  - appveyor DownloadFile https://dot.net/v1/dotnet-install.sh
+  - bash dotnet-install.sh --version 5.0.100
+  - nuget restore Lepton/Lepton.sln -Verbosity quiet
+
+build_script:
+  - dotnet build Lepton/Lepton.sln --configuration Release

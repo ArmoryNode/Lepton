@@ -1,0 +1,65 @@
+﻿@import "_variables";
+@import "_mixins.scss";
+
+#loginContainer {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100vh;
+
+    .login-body {
+        padding: 2.5em 1.5em;
+        position: relative;
+        margin: auto;
+        background-color: $foreground-color;
+        width: 550px;
+        opacity: 0;
+        animation-name: slide-in;
+        animation-direction: normal;
+        animation-fill-mode: forwards;
+        animation-duration: .5s;
+        animation-timing-function: ease;
+
+        @include box-shadow;
+
+        form#external-account {
+            position: relative;
+            display: flex;
+            flex-flow: column;
+            height: 100%;
+            align-items: center;
+
+            .provider-button {
+                width: 80%;
+                margin-top: 20px;
+                border: none;
+                outline: none;
+                font-size: 24px;
+                background-color: $blue;
+                color: $text-color;
+                padding: 1rem;
+
+                @include box-shadow;
+            }
+
+            .provider-button:last-of-type {
+                margin-bottom: auto;
+            }
+
+            .provider-button.provider-google {
+            }
+        }
+    }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
