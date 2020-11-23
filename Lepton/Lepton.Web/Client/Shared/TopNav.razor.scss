@@ -1,0 +1,34 @@
+﻿@import "../../../Lepton.Components/Styles/_blazor-helpers";
+@import "../../../Lepton.Components/Styles/_colors";
+@import "../../../Lepton.Components/Styles/_variables";
+@import "../../../Lepton.Components/Styles/_mixins";
+
+ul.topnav {
+    display: flex;
+    flex-flow: row-reverse nowrap;
+    align-items: center;
+    padding: 16px 32px;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    max-height: 100%;
+    background-color: $foreground-color;
+
+    li.topnav-item {
+        display: flex;
+        flex-flow: inherit;
+        align-items: center;
+
+        a {
+            display: inline-block;
+            color: $text-color;
+            text-align: center;
+            padding: 8px;
+            margin: 0 8px;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}

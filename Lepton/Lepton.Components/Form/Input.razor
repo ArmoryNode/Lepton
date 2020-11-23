@@ -1,0 +1,8 @@
+﻿@inherits FormComponent<string>
+
+<input class="form-input" @bind-value="Value"/>
+
+@code {
+    [Parameter]
+    public override Func<string, bool> Validator { get; set; } = (val) => !string.IsNullOrWhiteSpace(val);
+}

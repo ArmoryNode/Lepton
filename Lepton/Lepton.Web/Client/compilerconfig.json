@@ -1,0 +1,30 @@
+﻿[
+  {
+    "outputFile": "Shared/MainLayout.razor.css",
+    "inputFile": "Shared/MainLayout.razor.scss"
+  },
+  {
+    "outputFile": "Pages/Index.razor.css",
+    "inputFile": "Pages/Index.razor.scss"
+  },
+  {
+    "outputFile": "Shared/SurveyPrompt.razor.css",
+    "inputFile": "Shared/SurveyPrompt.razor.scss"
+  },
+  {
+    "outputFile": "Shared/SideNav.razor.css",
+    "inputFile": "Shared/SideNav.razor.scss"
+  },
+  {
+    "outputFile": "Shared/LoginDisplay.razor.css",
+    "inputFile": "Shared/LoginDisplay.razor.scss"
+  },
+  {
+    "outputFile": "Shared/TopNav.razor.css",
+    "inputFile": "Shared/TopNav.razor.scss"
+  },
+  {
+    "outputFile": "Shared/Loader.razor.css",
+    "inputFile": "Shared/Loader.razor.scss"
+  }
+]

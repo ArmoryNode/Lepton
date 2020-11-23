@@ -29,22 +29,20 @@ namespace Lepton.Data.Services
             return await _characterRepository.Get(characterId, cancellationToken);
         }
 
-        public async Task UpsertCharacter(Character character, CancellationToken cancellationToken)
+        public async Task<bool> UpsertCharacter(Character character, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrWhiteSpace(character.PartitionKey))
-                throw new ArgumentNullException(nameof(character.PartitionKey));
-            else if (string.IsNullOrWhiteSpace(character.RowKey))
-                throw new ArgumentNullException(nameof(character.RowKey));
+            if (string.IsNullOrWhiteSpace(character.PartitionKey) || string.IsNullOrWhiteSpace(character.RowKey))
+                return false;
 
-            await _characterRepository.Upsert(character, cancellationToken);
+            return await _characterRepository.Upsert(character, cancellationToken);
         }
 
-        public async Task DeleteCharacter(Character character, CancellationToken cancellationToken)
+        public async Task<bool> DeleteCharacter(Character character, CancellationToken cancellationToken)
         {
             if (character is null)
-                return;
+                return false;
 
-            await _characterRepository.Delete(character, cancellationToken);
+            return await _characterRepository.Delete(character, cancellationToken);
         }
     }
 }

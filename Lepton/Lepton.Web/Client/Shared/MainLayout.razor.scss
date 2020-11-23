@@ -1,0 +1,40 @@
+﻿@import "../../../Lepton.Components/Styles/_variables";
+@import "../../../Lepton.Components/Styles/_colors";
+@import "../../../Lepton.Components/Styles/_mixins";
+
+#layoutWrapper {
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    flex-grow: 1;
+    font-family: 'Open Sans', sans-serif;
+    color: $text-color;
+    background-color: $background-color;
+    height: 100vh;
+
+    nav.top-bar {
+        height: 40px;
+    }
+
+    .main {
+        display: flex;
+        flex-flow: row nowrap;
+        flex-grow: 1;
+
+        .content {
+            width: 100%;
+        }
+    }
+
+    .side-bar {
+        min-width: 350px;
+    }
+}
+
+@include media-xs {
+    #layoutWrapper {
+        .side-bar {
+            background-color: red;
+        }
+    }
+}

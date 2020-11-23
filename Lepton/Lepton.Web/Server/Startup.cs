@@ -1,16 +1,24 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using Lepton.Web.Server.Data;
+using Lepton.Web.Server.Models;
+using System.Text.Json;
+using Lepton.Web.Server.Infrastructure;
+using Lepton.Data.Models;
 using Lepton.Data.Storage;
 using Lepton.Data.Services;
 using Lepton.Data.Infrastructure;
-using Lepton.Data.Models;
-using System.Text.Json;
 
 namespace Lepton.Web.Server
 {
@@ -23,26 +31,44 @@ namespace Lepton.Web.Server
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
-            services.AddRazorPages();
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddSingleton(StorageSettings.DefaultSettings);
+            var authSettings = Configuration.GetSection(nameof(AuthSettings)).Get<AuthSettings>();
 
-            services.AddSingleton<IRepository<Character>, CharacterRepository>();
-            services.AddScoped<CharacterService>();
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = authSettings.GoogleClientId;
+                    options.ClientSecret = authSettings.GoogleSecret;
+                });
 
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                 options.JsonSerializerOptions.IgnoreNullValues = true;
             });
+
+            services.AddSingleton<StorageSettings>();
+
+            services.AddSingleton<IRepository<Character>, CharacterRepository>();
+            services.AddScoped<CharacterService>();
+            services.AddSingleton<MockCharacterService>();
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -53,7 +79,6 @@ namespace Lepton.Web.Server
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -62,6 +87,10 @@ namespace Lepton.Web.Server
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseIdentityServer();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
