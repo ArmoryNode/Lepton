@@ -1,5 +1,6 @@
 language: csharp
 mono: none
+os: windows
 dotnet: 5
 install:
   - dotnet restore Lepton/Lepton.sln
