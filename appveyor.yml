@@ -1,8 +1,8 @@
 image: Visual Studio 2019 Preview
 
 install:
+  - ps: >- Invoke-WebRequest https://dot.net/v1/dotnet-install.ps1 -OutFile dotnet-install.ps1 ./dotnet-install.ps1 --Version 5.0.100 -InstallDir 'C:\Program Files\dotnet'
   - nuget restore Lepton/Lepton.sln -Verbosity quiet
 
-build:
-  project: Lepton/Lepton.sln
-  verbosity: minimal
+build_script:
+  - dotnet build Lepton/Lepton.sln --configuration Release
