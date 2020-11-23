@@ -2,9 +2,7 @@ image: Ubuntu
 
 install:
   - appveyor DownloadFile https://dot.net/v1/dotnet-install.sh
-  - bash dotnet-install.sh --version 5.0.100-preview.8.20417.9
-  - sudo mkdir /Users/appveyor/.local/share/NuGet
-  - sudo chmod a+rwx /Users/appveyor/.local/share/NuGet
+  - bash dotnet-install.sh --version 5.0.100
   - nuget restore Lepton/Lepton.sln -Verbosity quiet
 
 build_script:
