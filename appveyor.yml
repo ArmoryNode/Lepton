@@ -1,7 +1,7 @@
 image: Visual Studio 2019 Preview
 
 install:
-  - nuget restore -Verbosity quiet
+  - nuget restore Lepton/Lepton.sln -Verbosity quiet
 
 build:
   project: Lepton/Lepton.sln
