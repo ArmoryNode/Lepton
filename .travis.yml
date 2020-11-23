@@ -1,6 +1,7 @@
 language: csharp
 mono: none
 os: windows
+dotnet: 3.1
 install:
   - dotnet restore Lepton/Lepton.sln
 script:
